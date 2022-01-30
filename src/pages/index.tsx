@@ -1,8 +1,8 @@
 import { graphql } from "gatsby";
 import * as React from "react";
-import "../styles/index.css";
 
 import ProductGrid from "../components/ProductGrid/ProductGrid";
+import { Layout } from "../components/Layout/Layout";
 
 export const query = graphql`
   {
@@ -34,12 +34,17 @@ export const query = graphql`
   }
 `;
 
+const homepageMeta = {
+  title: "eShop - Test",
+  description: "This is a test site for linking Shopify & Gatsby",
+};
+
 const IndexPage = ({ data }) => {
   return (
-    <>
+    <Layout title={homepageMeta.title} description={homepageMeta.description}>
       <h1>Hello World!</h1>
       <ProductGrid data={data} />
-    </>
+    </Layout>
   );
 };
 
