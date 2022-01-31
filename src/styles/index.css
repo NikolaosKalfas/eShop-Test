@@ -1,3 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @import url("./src/styles/font/stylesheet.css"); */
+
+@layer base {
+  /* .custom-class {
+        @apply text-white shadow hover:bg-blue-300
+    } */
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

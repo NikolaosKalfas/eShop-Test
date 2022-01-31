@@ -1,16 +1,14 @@
 import React from "react";
 
-import ProdactCard from "../ProductCard/ProdactCard";
+import ProductCard from "../ProductCard/ProductCard";
 
 function ProductGrid({ data }) {
-  console.log(data);
-
   return (
     <div className="product-grid-container">
       <h2>My products</h2>
       <div className="product-grid">
         {data.allShopifyProduct.nodes.map((product) => (
-          <ProdactCard
+          <ProductCard
             key={product.id}
             image={product.featuredImage.localFile.childImageSharp.fixed}
             imgAlt={product.title}

@@ -35,5 +35,6 @@ module.exports = {
         includeCollections: ["shop"],
       },
     },
+    "gatsby-plugin-postcss",
   ],
 };
