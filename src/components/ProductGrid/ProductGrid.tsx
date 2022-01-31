@@ -1,13 +1,49 @@
+import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 
 import ProductCard from "../ProductCard/ProductCard";
 
-function ProductGrid({ data }) {
+function ProductGrid() {
+  const query = useStaticQuery(graphql`
+    {
+      allShopifyProduct(
+        filter: { variants: { elemMatch: { availableForSale: { eq: true } } } }
+      ) {
+        nodes {
+          title
+          totalInventory
+          tags
+          description
+          productType
+          id
+          featuredImage {
+            localFile {
+              childImageSharp {
+                fixed(
+                  width: 100
+                  height: 100
+                  fit: COVER
+                  cropFocus: ATTENTION
+                ) {
+                  ...GatsbyImageSharpFixed_withWebp
+                }
+              }
+            }
+          }
+          variants {
+            sku
+            price
+          }
+        }
+      }
+    }
+  `);
+
   return (
     <div className="product-grid-container">
       <h2>My products</h2>
       <div className="product-grid">
-        {data.allShopifyProduct.nodes.map((product) => (
+        {query.allShopifyProduct.nodes.map((product) => (
           <ProductCard
             key={product.id}
             image={product.featuredImage.localFile.childImageSharp.fixed}
