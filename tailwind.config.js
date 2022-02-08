@@ -1,6 +1,6 @@
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  // darkMode: false, // or 'media' or 'class'
   plugins: [
     // ...
   ],
@@ -9,6 +9,9 @@ module.exports = {
     outline: false,
   },
   theme: {
+    minWidth: {
+      "1/4": "25vw",
+    },
     extend: {
       colors: {
         primary_color: "#20123a",

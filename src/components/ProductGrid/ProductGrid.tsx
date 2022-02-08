@@ -40,8 +40,8 @@ function ProductGrid() {
   `);
 
   return (
-    <div className="product-grid-container">
-      <h2>My products</h2>
+    <div className="product-grid-container py-5 px-20">
+      <h2 className="py-5">My products</h2>
       <div className="product-grid">
         {query.allShopifyProduct.nodes.map((product) => (
           <ProductCard

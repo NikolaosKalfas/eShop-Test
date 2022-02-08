@@ -11,7 +11,7 @@ const homepageMeta = {
 const IndexPage = () => {
   return (
     <Layout title={homepageMeta.title} description={homepageMeta.description}>
-      <h1>Hello World!!</h1>
+      <h1 className="px-20 py-5">Hello World!!</h1>
       <ProductGrid />
     </Layout>
   );

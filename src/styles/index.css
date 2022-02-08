@@ -9,13 +9,28 @@
     } */
 }
 
+body {
+  overflow: hidden;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
 }
 
 .product-card {
   border-radius: 3px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
+}
+
+#cart.closed {
+  right: -100%;
+  transition-duration: 1s;
+}
+
+#cart.open {
+  right: 0;
+  transition-duration: 0.5s;
 }
