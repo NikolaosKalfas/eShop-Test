@@ -1,5 +1,5 @@
 require("dotenv").config({
-  path: `.env`
+  path: `.env`,
 });
 
 module.exports = {
@@ -28,10 +28,10 @@ module.exports = {
     {
       resolve: "gatsby-source-shopify",
       options: {
-        storeUrl: process.env.SHOPIFY_STOREFRONT_STORE_URL,
-        shopName: process.env.SHOPIFY_STOREFRONT_SHOP_NAME,
-        password: process.env.SHOPIFY_STOREFRONT_API_PASSWORD,
-        accessToken: process.env.SHOPIFY_STOREFRONT_API_TOKEN,
+        storeUrl: "nikosteststore.myshopify.com",
+        shopName: "nikosteststore",
+        password: "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",
+        accessToken: "142f4c3b2d954a00027246a69d5bade1",
         downloadImages: true,
         apiVersion: "2020-01",
         includeCollections: ["shop"],
