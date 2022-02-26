@@ -1,5 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
+import Cart from "../Cart/Cart";
 
 import Nav from "../Nav/Nav";
 
@@ -19,7 +20,7 @@ export const Layout: React.FC<LayoutInterface> = ({
         <title>{title}</title>
         <meta name="description" content={description} />
       </Helmet>
-      {/* <Cart /> */}
+      <Cart />
       <Nav />
       {children}
     </div>
