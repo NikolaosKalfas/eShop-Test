@@ -2895,22 +2895,23 @@ var sendShopifyStorefrontRequest = async ({ query, variables }) => {
 };
 
 // netlify/functions/add-to-cart.js
-var handler = async (event) => {
+async function handler(event) {
   const { cartId, variantId } = JSON.parse(event.body);
   const data = await sendShopifyStorefrontRequest({
     query: `
-    mutation AddToCart($cartId: ID!, $variantId: ID!) {
-      cartLinesAdd(cartId: $cartId, lines: [{ quantity: 1, merchandiseId: $variantId}]) {
-        cart {
-          lines(first: 100) {
-            edges {
-              node {
-                id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    product {
-                      title
+      mutation AddToCart($cartId: ID!, $variantId: ID!) {
+        cartLinesAdd(cartId: $cartId, lines: [{ quantity: 1, merchandiseId: $variantId}]) {
+          cart {
+            lines(first: 100) {
+              edges {
+                node {
+                  id
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      product {
+                        title
+                      }
                     }
                   }
                 }
@@ -2919,15 +2920,15 @@ var handler = async (event) => {
           }
         }
       }
-    }
     `,
     variables: { cartId, variantId }
   });
+  console.log("add to cart: " + data);
   return {
     statusCode: 200,
     body: JSON.stringify(data)
   };
-};
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   handler

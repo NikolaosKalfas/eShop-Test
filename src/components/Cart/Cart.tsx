@@ -52,11 +52,28 @@ const Cart = () => {
     };
 
     getCart();
+
+    // set a timer to check if cart is empty
+    const interval = setInterval(() => {
+      const state = window.localStorage.getItem("eShop-test:status");
+
+      if (state && state === "dirty") {
+        getCart();
+        window.localStorage.setItem("eShop-test:status", "clean");
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const emptyCart = () => {
     window.localStorage.removeItem("eShop-test:cart");
+    window.localStorage.setItem("eShop-test:status", "dirty");
   };
+
+  let cost = Number(cart?.estimatedCost?.totalAmount?.amount || 0);
 
   return (
     <div id="cart" className="closed h-full absolute bg-white min-w-1/4 z-30">
@@ -81,7 +98,7 @@ const Cart = () => {
               ))}
               <li>
                 {/* TODO: fix cost */}
-                <p>Total: 40</p>
+                <p>Total: {cost === 0 ? "FREE" : `$${cost}`}</p>
               </li>
             </ul>
             <a href={`${cart.checkoutUrl}`}>Check out</a>

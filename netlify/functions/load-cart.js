@@ -48,6 +48,8 @@ export const handler = async (event) => {
     variables: { cartId },
   });
 
+  console.log("load cart: " + data);
+
   return {
     statusCode: 200,
     body: JSON.stringify(data),

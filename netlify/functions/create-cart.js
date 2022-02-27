@@ -46,6 +46,8 @@ export const handler = async () => {
     };
   }
 
+  console.log("create cart: " + data);
+
   return {
     statusCode: 200,
     body: JSON.stringify({

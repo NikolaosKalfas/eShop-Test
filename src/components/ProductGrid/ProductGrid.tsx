@@ -33,30 +33,35 @@ function ProductGrid() {
           variants {
             sku
             price
+            storefrontId
           }
         }
       }
     }
   `);
 
+  console.log(query);
+
   return (
     <div className="product-grid-container py-5 px-20">
       <h2 className="py-5">My products</h2>
       <div className="product-grid">
-        {query.allShopifyProduct.nodes.map((product) => (
-          <ProductCard
-            key={product.id}
-            image={product.featuredImage.localFile.childImageSharp.fixed}
-            imgAlt={product.title}
-            name={product.title}
-            description={product.description}
-            type={product.productType}
-            tags={product.tags.map((tag) => (
-              <p>{tag}</p>
-            ))}
-            price={product.variants[0].price}
-          />
-        ))}
+        {query.allShopifyProduct.nodes.map((product) =>
+          product.variants.map((variant) => (
+            <ProductCard
+              keyId={variant.storefrontId}
+              image={product.featuredImage.localFile.childImageSharp.fixed}
+              imgAlt={product.title}
+              name={product.title}
+              description={product.description}
+              type={product.productType}
+              tags={product.tags.map((tag) => (
+                <p>{tag}</p>
+              ))}
+              price={variant.price}
+            />
+          ))
+        )}
       </div>
     </div>
   );

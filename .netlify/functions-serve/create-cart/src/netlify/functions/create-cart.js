@@ -2913,6 +2913,7 @@ var handler = async () => {
       body: JSON.stringify({ message: "There was a problem creating a cart" })
     };
   }
+  console.log("create cart: " + data);
   return {
     statusCode: 200,
     body: JSON.stringify({
