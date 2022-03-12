@@ -34,9 +34,11 @@ const Cart = () => {
         });
 
         return;
+      } else {
+        localCartData = await fetch("/api/create-cart").then((res) =>
+          res.json()
+        );
       }
-
-      localCartData = await fetch("/api/create-cart").then((res) => res.json());
 
       setCart({
         id: localCartData.cartId,
@@ -75,6 +77,8 @@ const Cart = () => {
 
   let cost = Number(cart?.estimatedCost?.totalAmount?.amount || 0);
 
+  console.log(cart);
+
   return (
     <div id="cart" className="closed h-full absolute bg-white min-w-1/4 z-30">
       <div
@@ -90,9 +94,10 @@ const Cart = () => {
           <>
             <ul>
               {cart.lines.map(({ node: item }) => (
-                <li>
+                <li key={item.merchandise?.product?.title}>
                   <p>
-                    {item.quantity} &times; {item.merchandise?.product?.title}
+                    {item.quantity} &times; {item.merchandise?.product?.title} -{" "}
+                    {item.merchandise?.title}
                   </p>
                 </li>
               ))}

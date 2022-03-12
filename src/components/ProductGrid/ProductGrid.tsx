@@ -6,34 +6,41 @@ import ProductCard from "../ProductCard/ProductCard";
 function ProductGrid() {
   const query = useStaticQuery(graphql`
     {
-      allShopifyProduct(
-        filter: { variants: { elemMatch: { availableForSale: { eq: true } } } }
-      ) {
-        nodes {
-          title
-          totalInventory
-          tags
-          description
-          productType
-          id
-          featuredImage {
-            localFile {
-              childImageSharp {
-                fixed(
-                  width: 100
-                  height: 100
-                  fit: COVER
-                  cropFocus: ATTENTION
-                ) {
-                  ...GatsbyImageSharpFixed_withWebp
+      allShopifyProduct {
+        edges {
+          node {
+            id
+            title
+            tags
+            storefrontId
+            productType
+            totalInventory
+            totalVariants
+            tracksInventory
+            description
+            variants {
+              price
+              title
+              storefrontId
+              inventoryQuantity
+            }
+            images {
+              localFile {
+                childImageSharp {
+                  gatsbyImageData
                 }
               }
             }
-          }
-          variants {
-            sku
-            price
-            storefrontId
+            priceRangeV2 {
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
           }
         }
       }
@@ -44,24 +51,23 @@ function ProductGrid() {
 
   return (
     <div className="product-grid-container py-5 px-20">
-      <h2 className="py-5">My products</h2>
-      <div className="product-grid">
-        {query.allShopifyProduct.nodes.map((product) =>
-          product.variants.map((variant) => (
-            <ProductCard
-              keyId={variant.storefrontId}
-              image={product.featuredImage.localFile.childImageSharp.fixed}
-              imgAlt={product.title}
-              name={product.title}
-              description={product.description}
-              type={product.productType}
-              tags={product.tags.map((tag) => (
-                <p>{tag}</p>
-              ))}
-              price={variant.price}
-            />
-          ))
-        )}
+      <h2 className="my-16 text-4xl font-semibold">My products</h2>
+      <div className="grid grid-cols-4 gap-4">
+        {query.allShopifyProduct.edges.map((product) => (
+          <ProductCard
+            image={
+              product.node.images[0].localFile.childImageSharp.gatsbyImageData
+            }
+            imgAlt={product.node.title}
+            name={product.node.title}
+            description={product.node.description}
+            tags={product.node.tags.map((tag) => tag)}
+            price={product.node.priceRangeV2.maxVariantPrice.amount}
+            currency={product.node.priceRangeV2.maxVariantPrice.currencyCode}
+            variants={product.node.variants}
+            key={product.node.title}
+          />
+        ))}
       </div>
     </div>
   );

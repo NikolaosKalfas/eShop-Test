@@ -2912,6 +2912,7 @@ async function handler(event) {
                       product {
                         title
                       }
+                      title
                     }
                   }
                 }

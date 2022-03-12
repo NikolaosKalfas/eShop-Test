@@ -9,7 +9,7 @@ const Nav = () => {
   };
 
   return (
-    <div className=" flex items-center justify-between py-5 px-20 shadow">
+    <div className=" flex items-center justify-between py-5 px-20 shadow sticky top-0 bg-white">
       <Link to={"/"}>Home</Link>
       <button onClick={openCart}>Cart (0)</button>
     </div>

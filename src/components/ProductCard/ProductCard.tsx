@@ -1,16 +1,18 @@
-import React from "react";
-import Image from "gatsby-image";
+import React, { useState } from "react";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 function ProductCard({
-  keyId,
   image,
   imgAlt,
   name,
   description,
-  type,
   tags,
   price,
+  currency,
+  variants,
 }) {
+  const [variantId, setVariantId] = useState(variants[0].storefrontId);
+
   const addToCart = async () => {
     let localCartData = JSON.parse(
       window.localStorage.getItem("eShop-test:cart")
@@ -23,7 +25,10 @@ function ProductCard({
 
     const result = await fetch("/api/add-to-cart", {
       method: "POST",
-      body: JSON.stringify({ cartId: localCartData.cartId, variantId: keyId }),
+      body: JSON.stringify({
+        cartId: localCartData.cartId,
+        variantId: variantId,
+      }),
     });
 
     if (!result.ok) {
@@ -35,15 +40,43 @@ function ProductCard({
     window.localStorage.setItem("eShop-test:status", "dirty");
   };
 
+  const setId = (e) => {
+    setVariantId(e.target.value);
+  };
+
   return (
-    <div className="product-card" key={keyId}>
-      <Image fixed={image} alt={imgAlt} />
-      <h3 className="">{name}</h3>
-      <p>{description}</p>
-      <p>{type}</p>
-      <p>&pound;{price}</p>
-      <div className="flex flex-row justify-between">{tags}</div>
-      <p>{keyId}</p>
+    <div className="product-card">
+      <GatsbyImage image={image} alt={imgAlt} />
+      <div className="mb-5">
+        <h3 className="font-semibold text-2xl my-2">{name}</h3>
+        <div className="flex flex-row text-xs">
+          {tags.map((tag) => (
+            <p className="mr-2 bg-gray-200 rounded p-1" key={tag}>
+              {tag}
+            </p>
+          ))}
+        </div>
+      </div>
+      <p className="mb-5 text-xl">{description}</p>
+      <p className="mb-5">
+        {price} {currency}
+      </p>
+      {variants && variants.length > 1 && (
+        <select
+          name="variantIds"
+          className="block border border-black rounded my-2 cursor-pointer"
+          onChange={setId}
+          value={variantId}
+        >
+          {variants.map((variant) => (
+            <option
+              value={variant.storefrontId}
+              key={variant.storefrontId}
+              label={variant.title}
+            ></option>
+          ))}
+        </select>
+      )}
       <button
         className="bg-yellow-500 py-1 px-2 rounded hover:bg-yellow-600"
         onClick={addToCart}
