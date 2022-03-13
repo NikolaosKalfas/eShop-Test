@@ -48,7 +48,7 @@ export const handler = async (event) => {
     variables: { cartId },
   });
 
-  console.log("load cart: " + data);
+  console.log("load cart: " + JSON.stringify(data));
   return {
     statusCode: 200,
     body: JSON.stringify(data),

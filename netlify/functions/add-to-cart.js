@@ -15,10 +15,10 @@ export async function handler(event) {
                   quantity
                   merchandise {
                     ... on ProductVariant {
+                      title
                       product {
                         title
                       }
-                      title
                     }
                   }
                 }
@@ -32,7 +32,7 @@ export async function handler(event) {
 
   })
   
-  console.log("add to cart: " + data)
+  // console.log("add to cart: " + JSON.stringify(data))
 
   return {
     statusCode: 200,

@@ -45,7 +45,7 @@ function ProductCard({
   };
 
   return (
-    <div className="product-card">
+    <div className="product-card rounded p-4">
       <GatsbyImage image={image} alt={imgAlt} />
       <div className="mb-5">
         <h3 className="font-semibold text-2xl my-2">{name}</h3>

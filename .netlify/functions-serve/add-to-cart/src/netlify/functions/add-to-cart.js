@@ -2909,10 +2909,10 @@ async function handler(event) {
                   quantity
                   merchandise {
                     ... on ProductVariant {
+                      title
                       product {
                         title
                       }
-                      title
                     }
                   }
                 }
@@ -2924,7 +2924,6 @@ async function handler(event) {
     `,
     variables: { cartId, variantId }
   });
-  console.log("add to cart: " + data);
   return {
     statusCode: 200,
     body: JSON.stringify(data)
