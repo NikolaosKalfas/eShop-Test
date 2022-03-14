@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCartCount } from "../../features/counter/counterSlice";
 
 const Cart = () => {
+  // const cartItemsNum = useSelector((state) => state.cartItems.value);
+  // const [itemsInCart, setItemsInCart] = useState(cartItemsNum);
+  const dispatch = useDispatch();
+
   const [cart, setCart] = useState({
     id: null,
     lines: [],
@@ -78,6 +84,16 @@ const Cart = () => {
   let cost = Number(cart?.estimatedCost?.totalAmount?.amount || 0);
 
   console.log(cart);
+
+  // useEffect(() => {
+  //   setItemsInCart(cart.lines.length);
+  // }, [cart.lines.length]);
+
+  // console.log("store: " + cartItemsNum);
+  // console.log("state: " + itemsInCart);
+  // console.log("cart nodes: " + cart.lines.length);
+
+  // dispatch(updateCartCount({ key: "items in cart", value: itemsInCart }));
 
   return (
     <div
