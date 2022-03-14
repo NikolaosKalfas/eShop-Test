@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { updateCartCount } from "../../features/counter/counterSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Cart = () => {
-  // const cartItemsNum = useSelector((state) => state.cartItems.value);
-  // const [itemsInCart, setItemsInCart] = useState(cartItemsNum);
-  const dispatch = useDispatch();
+  const cartItemsNum = useAppSelector((state) => state.cart.value);
+  const dispatch = useAppDispatch();
+  const [itemsInCart, setItemsInCart] = useState(cartItemsNum);
 
   const [cart, setCart] = useState({
     id: null,
@@ -85,15 +85,13 @@ const Cart = () => {
 
   console.log(cart);
 
-  // useEffect(() => {
-  //   setItemsInCart(cart.lines.length);
-  // }, [cart.lines.length]);
+  useEffect(() => {
+    setItemsInCart(cart.lines.length);
+  }, [cart.lines.length]);
 
-  // console.log("store: " + cartItemsNum);
-  // console.log("state: " + itemsInCart);
-  // console.log("cart nodes: " + cart.lines.length);
-
-  // dispatch(updateCartCount({ key: "items in cart", value: itemsInCart }));
+  useEffect(() => {
+    dispatch(updateCartCount(itemsInCart));
+  }, [itemsInCart]);
 
   return (
     <div
@@ -137,12 +135,15 @@ const Cart = () => {
             >
               Check out
             </a>
-            <button onClick={emptyCart} className="text-sm underline">
+            <button
+              onClick={emptyCart}
+              className="text-sm underline text-blue-500"
+            >
               Empty your cart
             </button>
           </>
         ) : (
-          <p className="text-4xl font-semibold">Your cart is empty</p>
+          <p className="text-4xl font-semibold ">Your cart is empty</p>
         )}
       </div>
     </div>

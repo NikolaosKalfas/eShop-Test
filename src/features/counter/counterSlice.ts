@@ -12,10 +12,8 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    updateCartCount: (state) => {
-      const cartCounter = document.querySelector(".cart-count");
-
-      cartCounter.innerHTML = `${state}`;
+    updateCartCount: (state, action: PayloadAction<number>) => {
+      state.value = action.payload;
     },
   },
 });

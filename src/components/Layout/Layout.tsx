@@ -19,6 +19,10 @@ export const Layout: React.FC<LayoutInterface> = ({
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <script
+          src="https://kit.fontawesome.com/75f8cd6059.js"
+          crossOrigin="anonymous"
+        ></script>
       </Helmet>
       <Cart />
       <Nav />

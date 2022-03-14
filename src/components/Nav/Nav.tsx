@@ -1,9 +1,10 @@
 import { Link } from "gatsby";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 
 const Nav = () => {
-  // const cartItemsNum = useSelector((state) => state.CartState.value);
+  const cartItemsNum = useAppSelector((state) => state.cart.value);
+
   const openCart = () => {
     const cartIcon = document.getElementById("cart");
     cartIcon.classList.remove("closed");
@@ -13,9 +14,14 @@ const Nav = () => {
   return (
     <div className=" flex items-center justify-between py-5 px-20 shadow sticky top-0 bg-white">
       <Link to={"/"}>Home</Link>
-      <button onClick={openCart}>
-        Cart <span className="cart-count">0</span>
-      </button>
+      <div className="flex flex-row">
+        <button onClick={openCart} className="mr-2">
+          <i className="fa-solid fa-cart-shopping"></i>{" "}
+        </button>
+        <div className=" cart-count bg-blue-300 rounded-full h-6 w-6 pb-1 pl-2 font-semibold">
+          {cartItemsNum}
+        </div>
+      </div>
     </div>
   );
 };
