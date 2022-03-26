@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { Link } from "gatsby";
 
 function ProductCard({
   image,
@@ -48,7 +49,9 @@ function ProductCard({
     <div className="product-card rounded p-4">
       <GatsbyImage image={image} alt={imgAlt} />
       <div className="mb-5">
-        <h3 className="font-semibold text-2xl my-2">{name}</h3>
+        <Link to={`products/${name}`} className="font-semibold text-2xl my-2">
+          {name}
+        </Link>
         <div className="flex flex-row text-xs">
           {tags.map((tag) => (
             <p className="mr-2 bg-gray-200 rounded p-1" key={tag}>

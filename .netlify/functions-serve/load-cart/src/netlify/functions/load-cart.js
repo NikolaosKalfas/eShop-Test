@@ -2891,6 +2891,7 @@ var sendShopifyStorefrontRequest = async ({ query, variables }) => {
     return false;
   }
   const { data } = await result.json();
+  console.log(data);
   return data;
 };
 

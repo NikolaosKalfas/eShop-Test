@@ -26,11 +26,14 @@ const Cart = () => {
       let localCartData = JSON.parse(
         window.localStorage.getItem("eShop-test:cart")
       );
+      console.log(localCartData);
 
       if (localCartData) {
         const existingCart = await fetch(
           `/api/load-cart?cartId=${localCartData.cartId}`
         ).then((res) => res.json());
+
+        console.log(existingCart);
 
         setCart({
           id: localCartData.cartId,

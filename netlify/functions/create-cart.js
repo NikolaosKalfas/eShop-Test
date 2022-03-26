@@ -21,6 +21,8 @@ export const sendShopifyStorefrontRequest = async ({ query, variables }) => {
 
   const { data } = await result.json();
 
+  console.log(data);
+
   return data;
 };
 
