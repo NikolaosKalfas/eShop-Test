@@ -65,12 +65,12 @@ function ProductCard({
 
   return (
     <div className="product-card rounded p-4">
-      <Link to={`products/${MakeSlug(name)}`}>
+      <Link to={`${process.env.GATSBY_WEBSITE_URL}/products/${MakeSlug(name)}`}>
         <GatsbyImage image={image} alt={imgAlt} />
       </Link>
       <div className="mb-5">
         <Link
-          to={`products/${MakeSlug(name)}`}
+          to={`${process.env.GATSBY_WEBSITE_URL}/products/${MakeSlug(name)}`}
           className="font-semibold text-2xl my-2"
         >
           {name}

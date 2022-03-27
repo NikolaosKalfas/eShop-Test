@@ -14,8 +14,20 @@ const Product = ({ pageContext }) => {
   const { product } = pageContext;
   const [variantId, setVariantId] = useState(product.variants[0].storefrontId);
   const [currentUrl, setCurrentUrl] = useState("");
+  const [hasRelatedProducts, setHasRelatedProducts] = useState(false);
 
   const relatedProducts = useShopify();
+
+  useEffect(() => {
+    relatedProducts.map((relatedProduct) =>
+      relatedProduct.node.productType === product.productType &&
+      relatedProduct.node.title !== product.title
+        ? setHasRelatedProducts(true)
+        : null
+    );
+  }, []);
+
+  console.log("has related products: " + hasRelatedProducts);
 
   const addToCart = async () => {
     let localCartData = JSON.parse(
@@ -143,38 +155,40 @@ const Product = ({ pageContext }) => {
           </button>
         </div>
       </div>
-      <div className="m-10 md:mx-20 ">
-        <h2 className="text-3xl font-semibold border-b pb-10 mb-10">
-          Related products
-        </h2>
-        <div className="grid md:grid-cols-4 gap-4 ">
-          {relatedProducts
-            .slice(0, 7)
-            .map((relatedProduct) =>
-              relatedProduct.node.productType === product.productType &&
-              relatedProduct.node.title !== product.title ? (
-                <ProductCard
-                  image={
-                    relatedProduct.node.images[0].localFile.childImageSharp
-                      .gatsbyImageData
-                  }
-                  imgAlt={relatedProduct.node.title}
-                  name={relatedProduct.node.title}
-                  tags={relatedProduct.node.tags.map((tag) => tag)}
-                  price={
-                    relatedProduct.node.priceRangeV2.maxVariantPrice.amount
-                  }
-                  currency={
-                    relatedProduct.node.priceRangeV2.maxVariantPrice
-                      .currencyCode
-                  }
-                  variants={relatedProduct.node.variants}
-                  key={relatedProduct.node.title}
-                />
-              ) : null
-            )}
+      {hasRelatedProducts ? (
+        <div className="m-10 md:mx-20 ">
+          <h2 className="text-3xl font-semibold border-b pb-10 mb-10">
+            Related products
+          </h2>
+          <div className="grid md:grid-cols-4 gap-4 ">
+            {relatedProducts
+              .slice(0, 7)
+              .map((relatedProduct) =>
+                relatedProduct.node.productType === product.productType &&
+                relatedProduct.node.title !== product.title ? (
+                  <ProductCard
+                    image={
+                      relatedProduct.node.images[0].localFile.childImageSharp
+                        .gatsbyImageData
+                    }
+                    imgAlt={relatedProduct.node.title}
+                    name={relatedProduct.node.title}
+                    tags={relatedProduct.node.tags.map((tag) => tag)}
+                    price={
+                      relatedProduct.node.priceRangeV2.maxVariantPrice.amount
+                    }
+                    currency={
+                      relatedProduct.node.priceRangeV2.maxVariantPrice
+                        .currencyCode
+                    }
+                    variants={relatedProduct.node.variants}
+                    key={relatedProduct.node.title}
+                  />
+                ) : null
+              )}
+          </div>
         </div>
-      </div>
+      ) : null}
     </Layout>
   );
 };
