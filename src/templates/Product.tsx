@@ -1,6 +1,11 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React, { useState } from "react";
 import { Layout } from "../components/Layout/Layout";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
 
 const Product = ({ pageContext }) => {
   const { product } = pageContext;
@@ -39,18 +44,25 @@ const Product = ({ pageContext }) => {
 
   console.log(product);
 
-  const image = getImage(
-    product.images[0].localFile.childImageSharp.gatsbyImageData
-  );
-
   return (
     <Layout title={product.title} description={product.description}>
       <div className="grid md:grid-cols-2 gap-4 my-20 mx-10">
-        <GatsbyImage
-          image={image}
-          alt={product.title}
-          className="w-4/6 mx-auto"
-        />
+        <Swiper
+          navigation={true}
+          modules={[Navigation]}
+          slidesPerView={1}
+          className="mySwiper w-full"
+        >
+          {product.images.map((image) => (
+            <SwiperSlide className="text-center">
+              <GatsbyImage
+                image={image.localFile.childImageSharp.gatsbyImageData}
+                alt={product.title}
+                className=""
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
         <div className="product-description md:w-4/6 mt-20">
           <h1 className="text-5xl font-semibold mb-2">{product.title}</h1>
           <div className="flex flex-row">
