@@ -12,7 +12,7 @@ const Nav = () => {
   };
 
   return (
-    <div className=" flex items-center justify-between py-5 px-20 shadow sticky top-0 bg-white">
+    <div className="flex items-center justify-between py-5 px-10 md:px-20 shadow sticky top-0 bg-white">
       <Link to={"/"}>Home</Link>
       <div className="flex flex-row">
         <button onClick={openCart} className="mr-2">

@@ -45,18 +45,29 @@ const Product = ({ pageContext }) => {
 
   return (
     <Layout title={product.title} description={product.description}>
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        <GatsbyImage image={image} alt={product.title} className="" />
-        <div className="product-description">
-          <h1>{product.title}</h1>
-          <p>{product.description}</p>
-          <p>{product.priceRangeV2.minVariantPrice.amount}</p>
-          <p>{product.priceRangeV2.minVariantPrice.currencyCode}</p>
-          {product.tags.map((tag) => (
-            <p className="mr-2 bg-gray-200 rounded p-1" key={tag}>
-              {tag}
+      <div className="grid md:grid-cols-2 gap-4 my-20 mx-10">
+        <GatsbyImage
+          image={image}
+          alt={product.title}
+          className="w-4/6 mx-auto"
+        />
+        <div className="product-description md:w-4/6 mt-20">
+          <h1 className="text-5xl font-semibold mb-2">{product.title}</h1>
+          <div className="flex flex-row">
+            {product.tags.map((tag) => (
+              <p className="mr-2 bg-gray-200 rounded p-1 text-xs" key={tag}>
+                {tag}
+              </p>
+            ))}
+          </div>
+          <div className="py-5 border-b">
+            <p className="font-semibold text-3xl">
+              {product.priceRangeV2.minVariantPrice.amount}{" "}
+              {product.priceRangeV2.minVariantPrice.currencyCode}
             </p>
-          ))}
+          </div>
+          <p className="text-2xl my-10">{product.description}</p>
+
           {product.variants && product.variants.length > 1 && (
             <select
               name="variantIds"
@@ -81,7 +92,6 @@ const Product = ({ pageContext }) => {
           </button>
         </div>
       </div>
-      ;
     </Layout>
   );
 };

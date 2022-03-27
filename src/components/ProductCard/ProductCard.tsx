@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
+import { MakeSlug } from "../../helpers/makeSlug";
 
 function ProductCard({
   image,
@@ -47,9 +48,14 @@ function ProductCard({
 
   return (
     <div className="product-card rounded p-4">
-      <GatsbyImage image={image} alt={imgAlt} />
+      <Link to={`products/${MakeSlug(name)}`}>
+        <GatsbyImage image={image} alt={imgAlt} />
+      </Link>
       <div className="mb-5">
-        <Link to={`products/${name}`} className="font-semibold text-2xl my-2">
+        <Link
+          to={`products/${MakeSlug(name)}`}
+          className="font-semibold text-2xl my-2"
+        >
           {name}
         </Link>
         <div className="flex flex-row text-xs">
