@@ -3,6 +3,23 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { MakeSlug } from "../../helpers/makeSlug";
 
+export interface ProductCardType {
+  image: any;
+  imgAlt: string;
+  name: string;
+  description?: string;
+  tags: string[];
+  price: string;
+  currency: string;
+  variants: VariantsType[];
+}
+
+export type VariantsType = {
+  price: string;
+  title: string;
+  storefrontId: string;
+};
+
 function ProductCard({
   image,
   imgAlt,
@@ -12,7 +29,7 @@ function ProductCard({
   price,
   currency,
   variants,
-}) {
+}: ProductCardType) {
   const [variantId, setVariantId] = useState(variants[0].storefrontId);
 
   const addToCart = async () => {
