@@ -1,15 +1,17 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout/Layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper";
 
 const Product = ({ pageContext }) => {
   const { product } = pageContext;
   const [variantId, setVariantId] = useState(product.variants[0].storefrontId);
+  const [currentUrl, setCurrentUrl] = useState("");
 
   const addToCart = async () => {
     let localCartData = JSON.parse(
@@ -42,14 +44,21 @@ const Product = ({ pageContext }) => {
     setVariantId(e.target.value);
   };
 
+  // Sets url for social icons
+  useEffect(() => {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    setCurrentUrl(url);
+  });
+
   console.log(product);
 
   return (
     <Layout title={product.title} description={product.description}>
       <div className="grid md:grid-cols-2 gap-4 my-20 mx-10">
         <Swiper
+          pagination={{ type: "bullets" }}
           navigation={true}
-          modules={[Navigation]}
+          modules={[Navigation, Pagination]}
           slidesPerView={1}
           className="mySwiper w-full"
         >
@@ -58,13 +67,15 @@ const Product = ({ pageContext }) => {
               <GatsbyImage
                 image={image.localFile.childImageSharp.gatsbyImageData}
                 alt={product.title}
-                className=""
+                className="md:w-3/4"
               />
             </SwiperSlide>
           ))}
         </Swiper>
         <div className="product-description md:w-4/6 mt-20">
-          <h1 className="text-5xl font-semibold mb-2">{product.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-semibold mb-2">
+            {product.title}
+          </h1>
           <div className="flex flex-row">
             {product.tags.map((tag) => (
               <p className="mr-2 bg-gray-200 rounded p-1 text-xs" key={tag}>
@@ -77,6 +88,29 @@ const Product = ({ pageContext }) => {
               {product.priceRangeV2.minVariantPrice.amount}{" "}
               {product.priceRangeV2.minVariantPrice.currencyCode}
             </p>
+            <div className="flex flex-row text-2xl mt-5">
+              <a
+                href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(
+                  currentUrl
+                )}`}
+              >
+                <i className="fa-brands fa-facebook mr-2"></i>
+              </a>
+              <a
+                href={`https://www.instagram.com/?url={encodeURIComponent(
+                  currentUrl
+                )}`}
+              >
+                <i className="fa-brands fa-instagram mr-2"></i>
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                  currentUrl
+                )}`}
+              >
+                <i className="fa-brands fa-twitter mr-2"></i>
+              </a>
+            </div>
           </div>
           <p className="text-2xl my-10">{product.description}</p>
 

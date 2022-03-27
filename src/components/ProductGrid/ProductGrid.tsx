@@ -50,9 +50,9 @@ function ProductGrid() {
   console.log(query);
 
   return (
-    <div className="product-grid-container py-5 px-20">
+    <div className="product-grid-container py-5 px-10 md:px-20">
       <h2 className="my-16 text-4xl font-semibold">My products</h2>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-4 gap-4">
         {query.allShopifyProduct.edges.map((product) => (
           <ProductCard
             image={
